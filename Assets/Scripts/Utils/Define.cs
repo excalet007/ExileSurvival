@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class Define
 {
-    #region CoreEnums
-    public enum WorldObject
-    {
-        Unknown,
-        Player,
-        Monster,
-    }
-
+    #region Core Enums
     public enum State
     {
         Die,
@@ -62,7 +55,7 @@ public class Define
     }
     #endregion
 
-    #region CoreNames
+    #region Core Names
     public const string NAME_MANAGERS = "@Managers";
     public const string NAME_UI_ROOT = "@UI_ROOT";
     public const string NAME_POOL_ROOT = "@Pool_Root";
@@ -70,8 +63,49 @@ public class Define
     public const string NAME_SOUND = "@Sound";
     #endregion
     
-    #region CoreValues
+    #region Core Values
     public const int UI_START_ORDER = 100;
 
+    #endregion
+
+    #region Contents Names
+    public const string NAME_SPAWNINGPOOL = "@SpawningPool";
+    public const string NAME_TIMEMANAGER = "@TimeManager";
+    
+
+    #endregion
+
+    #region Contents Values
+
+    
+
+    #endregion
+    
+
+    #region Contents Enums
+    public enum GameState
+    {
+        Idle,
+        Play,
+        Pause
+    }
+    
+    public enum WorldObject
+    {
+        Unknown,
+        Player,
+        Monster,
+    }
+
+    public enum MonsterType
+    {
+        Monster,
+        Halberdier
+    }
+
+    public enum MonsterState
+    {
+        Idle
+    }
     #endregion
 }

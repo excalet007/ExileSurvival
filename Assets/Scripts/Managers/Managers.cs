@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.PlayerLoop;
 
 public class Managers : MonoBehaviour
@@ -11,8 +13,29 @@ public class Managers : MonoBehaviour
     
     #region Contents
     GameManagerEx _game = new GameManagerEx();
+    TimeManagerEx _time = null;
 
     public static GameManagerEx Game {  get { return Instance._game; } }
+
+    public static TimeManagerEx Time
+    {
+        get
+        {
+            if (Instance._time == null)
+            {
+                Instance._time = GameObject.FindObjectOfType<TimeManagerEx>();
+
+                if (Instance._time == null)
+                {
+                    GameObject container = new GameObject($"{Define.NAME_TIMEMANAGER}");
+                    Instance._time = container.AddComponent<TimeManagerEx>();
+
+                    container.transform.parent = Managers.instance.transform;
+                }
+            }
+            return Instance._time;
+        }
+    }
     #endregion
     
     #region Core
@@ -36,7 +59,8 @@ public class Managers : MonoBehaviour
     #region MonoBehaviour
     void Update()
     {
-        _input.OnUpdate();
+        Input.OnUpdate();
+        Time.OnUpdate();
     }
 
 
@@ -67,6 +91,8 @@ public class Managers : MonoBehaviour
 
     public static void Clear()
     {
+        Game.Clear();
+        
         Input.Clear();
         Sound.Clear();
         Scene.Clear();

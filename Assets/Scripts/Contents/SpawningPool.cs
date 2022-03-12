@@ -1,62 +1,36 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 
 public class SpawningPool : MonoBehaviour
 {
-  //   [SerializeField]
-  //   int _monsterCount = 0;
-  //   int _reserveCount = 0;
-  //
-  //   [SerializeField]
-  //   int _keepMonsterCount = 0;
-  //
-  //   [SerializeField]
-  //   Vector3 _spawnPos;
-  //   [SerializeField]
-  //   float _spawnRadius = 15.0f;
-  //   [SerializeField]
-  //   float _spawnTime = 5.0f;
-  //
-  //   public void AddMonsterCount(int value) { _monsterCount += value; }
-  //   public void SetKeepMonsterCount(int count) { _keepMonsterCount = count; }
-  //
-  //   void Start()
-  //   {
-  //       Managers.Game.OnSpawnEvent -= AddMonsterCount;
-  //       Managers.Game.OnSpawnEvent += AddMonsterCount;
-  //   }
-  //
-  //   void Update()
-  //   {
-  //       while (_reserveCount + _monsterCount < _keepMonsterCount)
-  //       {
-  //           StartCoroutine("ReserveSpawn");
-  //       }
-  //   }
-  //
-  //   IEnumerator ReserveSpawn()
-  //   {
-  //       _reserveCount++;
-  //       yield return new WaitForSeconds(Random.Range(0, _spawnTime));
-  //       GameObject obj = Managers.Game.Spawn(Define.WorldObject.Monster, "Knight");
-  //       NavMeshAgent nma = obj.GetOrAddComponent<NavMeshAgent>();
-  //
-  //       Vector3 randPos;
-  //       while (true)
-  //       {
-  //           Vector3 randDir = Random.insideUnitSphere * Random.Range(0, _spawnRadius);
-		// 	randDir.y = 0;
-		// 	randPos = _spawnPos + randDir;
-  //
-  //           // 갈 수 있나
-  //           NavMeshPath path = new NavMeshPath();
-  //           if (nma.CalculatePath(randPos, path))
-  //               break;
-		// }
-  //
-  //       obj.transform.position = randPos;
-  //       _reserveCount--;
-  //   }
+    //생성
+    //주기적 생성 <-- 주기적 생성의 수치 조절
+    //그럼 시간은 어쩔 TV?
+    //이벤트 생성 
+    
+    
+
+    public void SpawnMonster(Define.MonsterType type, Vector3 position, Transform parent = null)
+    {
+        string name = Enum.GetName(typeof(Define.MonsterType), type);
+        GameObject monster = Managers.Resource.Instantiate(name, parent);
+
+        monster.transform.position = position;
+    }
+
+    [Button]
+    public void SpawnMonsterInCircleRange(Define.MonsterType type, float minRange, float maxRange, Transform parent = null)
+    {
+        float radius = UnityEngine.Random.Range(minRange, maxRange);
+        float randomRadian = UnityEngine.Random.Range(0, 2f) * Mathf.PI;
+        float xPos = Mathf.Cos(randomRadian) * radius;
+        float yPos = Mathf.Sin(randomRadian) * radius; 
+        
+        SpawnMonster(type, new Vector3(xPos, yPos, 0f), parent);
+    }
 }
