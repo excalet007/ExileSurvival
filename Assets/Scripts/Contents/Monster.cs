@@ -1,18 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float MoveSpeed { get; protected set; } = 1f;
+    public float AttackDamage { get; protected set; } = 1f;
+    public float AttackSpeedPerSecond { get; protected set; } = 0.2f;
+    
+    //TODO HP, MaxHp, CurrentHP
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

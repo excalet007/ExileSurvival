@@ -28,3 +28,4 @@ public class TimeManagerEx : MonoBehaviour
         Time = 0f;
     }
 }
+

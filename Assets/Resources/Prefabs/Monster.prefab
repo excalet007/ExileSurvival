@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 2960891828128644462}
   - component: {fileID: -5084065782404263138}
   - component: {fileID: 2199200397253773524}
+  - component: {fileID: 8613097906681479217}
+  - component: {fileID: 6201908782585429376}
   m_Layer: 0
   m_Name: Monster
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,3 +157,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8613097906681479217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5507509027513319997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83858954e4d31c47b894f563e86012f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6201908782585429376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5507509027513319997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b00a2c4389a63c47b8286d784aab588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -61,6 +61,7 @@ public class Define
     public const string NAME_POOL_ROOT = "@Pool_Root";
     public const string NAME_EVENTSYSTEM = "@EventSystem";
     public const string NAME_SOUND = "@Sound";
+    
     #endregion
     
     #region Core Values
@@ -71,8 +72,9 @@ public class Define
     #region Contents Names
     public const string NAME_SPAWNINGPOOL = "@SpawningPool";
     public const string NAME_TIMEMANAGER = "@TimeManager";
-    
 
+    public const string NAME_TAG_PLAYER = "Player";
+    public const string NAME_TAG_MONSTER = "Monster";
     #endregion
 
     #region Contents Values
@@ -99,13 +101,29 @@ public class Define
 
     public enum MonsterType
     {
-        Monster,
-        Halberdier
+        Ghost,
+        Skull,
+        BurningSkull,
+        Demon,
+        HellHound,
+        Nightmare,
+        GreyWolf,
+        WhiteWolf
     }
 
     public enum MonsterState
     {
-        Idle
+        Idle,
+        Action,
+        Stun,
+        Die,  
+    }
+
+    public enum MonsterAction
+    {
+        PermanentChase,
+        Chase,
+        Retreat
     }
     #endregion
 }
