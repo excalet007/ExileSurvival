@@ -2,14 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
-public class Monster : MonoBehaviour
+public class Monster : Battler
 {
-    public float MoveSpeed { get; protected set; } = 1f;
-    public float AttackDamage { get; protected set; } = 1f;
-    public float AttackSpeedPerSecond { get; protected set; } = 0.2f;
-    
-    //TODO HP, MaxHp, CurrentHP
+    public MonsterController monsterController;
 
-    
-}
+    public override void Init()
+    {
+        monsterController = GetComponent<MonsterController>();
+        monsterController.Init();
+
+        Managers.Game.Monsters.Add(this);
+    }
+
+    public void OnDestroy()
+    {
+        Managers.Game.Monsters.Remove(this);
+        Managers.Resource.Destroy(gameObject);
+    }
+} 

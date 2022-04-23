@@ -125,5 +125,35 @@ public class Define
         Chase,
         Retreat
     }
+
+    public enum SkillTag
+    {
+        Attack,Melee,Strike,Slam,Warcry,Spell,Arcane,Brand,Orb,Nova,Channelling,Physical,Fire,Cold,Lightning,Chaos,Bow,
+        Projectile, Chaining,Prismatic,Minion,Mine,Trap,Totem,Golem,Aura,Herald, Stance,Guard,Movement,Travel,Blink,
+        Curse,Hex,Mark,AoE,Duration,Vaal,Trigger,Critical,Link, Support,Exceptional,Blessing
+    }
+    
+    public enum SkillType
+    {
+        None,
+        Active,
+        Support
+    }
+
+    public enum CastType
+    {
+        None,
+        VolleyShot,
+        
+    }
+    
+    public enum ShootDirection
+    {
+        None,
+        Random,
+        HomingClosest,
+        CasterMoveDirection180
+    }
+    
     #endregion
 }

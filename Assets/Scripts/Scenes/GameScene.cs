@@ -16,6 +16,17 @@ public class GameScene : BaseScene
         Managers.Time.Init();
         
         GameObject player = Managers.Resource.Instantiate("Player");
+        Managers.Game.Player = player.GetComponent<Player>();
+        
+        
+        //add ballLightning
+        BallLightning ballLightning = new BallLightning();
+        ballLightning.Cooldown = 1.5f; //TODO load from data
+        ballLightning.Init(Managers.Game.Player);
+
+        Managers.Game.Player.ActiveSkills.Add(ballLightning);
+        
+        
         CameraController camera = Camera.main.transform.gameObject.AddComponent<CameraController>();
         camera.camera = Camera.main;
         camera.SetFollow(player.transform);
@@ -35,8 +46,8 @@ public class GameScene : BaseScene
             if (Input.GetKey(KeyCode.D)|| Input.GetKey(KeyCode.RightArrow))
                 move += Vector3.right * speed * Time.deltaTime;
 
-            GameObject player = GameObject.Find("Player");
-            player.transform.position += move;
+            Managers.Game.Player.transform.position += move;
+            Managers.Game.Player.Controller.LastMoveDirection = move.normalized;
 
             SpriteRenderer spriteRenderer = player.GetComponent<SpriteRenderer>();
             if (move.x < 0f)

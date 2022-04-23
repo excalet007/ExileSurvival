@@ -44,30 +44,10 @@ public class MonsterController : MonoBehaviour
     }
 
     #region MonoBehaviour
-    void Start()
-    {
-        Init();
-    }
-    
     void Update()
     {
-        // if (Managers.Game.State != Define.GameState.Play)
-        //     return;
-         
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Debug.Log($"change to permanentChase");
-            actionQueue.Clear();
-            actionQueue.Enqueue((Define.MonsterAction.PermanentChase, 1f));
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Debug.Log($"change to retreat");
-            State = Define.MonsterState.Action;
-            actionQueue.Clear();
-            actionQueue.Enqueue((Define.MonsterAction.Retreat, 5f));
-        }
+        if (Managers.Game.State != Define.GameState.Play)
+            return;
         
         switch (State)
         {
@@ -91,40 +71,18 @@ public class MonsterController : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D other)
     {
+        if (Managers.Game.State != Define.GameState.Play)
+            return;
+        
         if (other.transform.CompareTag(Define.NAME_TAG_PLAYER))
         {
             //TODO DO DAMAGE
-            Debug.Log($"Player stay in collision");
+            _monster.OnDestroy();
         };
     }
     #endregion
 
-    #region methods
-   
-    protected virtual void Init()
-    {
-        _animator = GetComponent<Animator>();
-        _monster = GetComponent<Monster>();
-        
-        _state = Define.MonsterState.Action;
-        
-        actionQueue = new Queue<(Define.MonsterAction, float)>();
-        actionTimer = 0f;
-        
-        _lockTarget = GameObject.Find("Player");
-        
-        //TODO Wourld object type이 꼭 필요할까?
-        WorldObjectType = Define.WorldObject.Monster;
-        
-        // //TODO UI_BAR가 꼭 필요할까?
-        // if (gameObject.GetComponentInChildren<UI_HPBar>() == null)
-        //     Managers.UI.MakeWorldSpaceUI<UI_HPBar>(transform);
-    }
-
-    protected virtual void ChangeAnimationState(string animationName)
-    {
-        _animator.Play($"anim_{name}_{animationName}");
-    }
+    #region UpdateFunctions
 
     protected virtual void UpdateDie() { }
 
@@ -156,6 +114,41 @@ public class MonsterController : MonoBehaviour
     protected virtual void UpdateIdle() { }
     protected virtual void UpdateStun() {}
 
+
+    
+
+    #endregion
+    
+
+    #region methods
+   
+    public virtual void Init()
+    {
+        _animator = GetComponent<Animator>();
+        _monster = GetComponent<Monster>();
+        
+        _state = Define.MonsterState.Action;
+        
+        actionQueue = new Queue<(Define.MonsterAction, float)>();
+        actionTimer = 0f;
+
+        _lockTarget = Managers.Game.Player.gameObject;
+        
+        //TODO Wourld object type이 꼭 필요할까?
+        WorldObjectType = Define.WorldObject.Monster;
+        
+        actionQueue.Clear();
+        actionQueue.Enqueue((Define.MonsterAction.PermanentChase, 1f));
+        
+        // //TODO UI_BAR가 꼭 필요할까? 존나필요함
+        // if (gameObject.GetComponentInChildren<UI_HPBar>() == null)
+        //     Managers.UI.MakeWorldSpaceUI<UI_HPBar>(transform);
+    }
+
+    protected virtual void ChangeAnimationState(string animationName)
+    {
+        _animator.Play($"anim_{name}_{animationName}");
+    }
     protected virtual void Move(Vector2 dir)
     {
         transform.Translate(dir * _monster.MoveSpeed * Time.deltaTime);

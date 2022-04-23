@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.PlayerLoop;
@@ -12,6 +13,7 @@ public class Managers : MonoBehaviour
     static Managers Instance { get { Init(); return instance; } }
     
     #region Contents
+    [ShowInInspector]
     GameManagerEx _game = new GameManagerEx();
     TimeManagerEx _time = null;
 

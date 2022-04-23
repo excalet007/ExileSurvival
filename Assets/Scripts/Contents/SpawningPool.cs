@@ -8,12 +8,34 @@ using UnityEngine.PlayerLoop;
 
 public class SpawningPool : MonoBehaviour
 {
-    //생성
-    //주기적 생성 <-- 주기적 생성의 수치 조절
-    //그럼 시간은 어쩔 TV?
-    //이벤트 생성 
+
+    IEnumerator SpawnRoutine(float delay)
+    {
+        while (true)
+        {
+            if (Managers.Game.State != Define.GameState.Play)
+            {
+                yield return new WaitForSeconds(delay);
+                continue;
+            }
+            
+            //TODO stop when finish
+            //delay를 game state에서 컨트롤 하는걸로.
+
+            if (Managers.Game.Monsters.Count <= 200)
+            {
+                SpawnMonsterInCircleRange(Define.MonsterType.Ghost, 5f, 6f);
+            }
+            
+            yield return new WaitForSeconds(delay);
+        }
+    }
     
-    
+    private void Start()
+    {
+        StartCoroutine(SpawnRoutine(0.5f));
+    }
+
 
     public void SpawnMonster(Define.MonsterType type, Vector3 position, Transform parent = null)
     {
@@ -21,6 +43,8 @@ public class SpawningPool : MonoBehaviour
         GameObject monster = Managers.Resource.Instantiate(name, parent);
 
         monster.transform.position = position;
+
+        Managers.Game.Monsters.Add(monster.GetComponent<Monster>());
     }
 
     [Button]
@@ -29,8 +53,10 @@ public class SpawningPool : MonoBehaviour
         float radius = UnityEngine.Random.Range(minRange, maxRange);
         float randomRadian = UnityEngine.Random.Range(0, 2f) * Mathf.PI;
         float xPos = Mathf.Cos(randomRadian) * radius;
-        float yPos = Mathf.Sin(randomRadian) * radius; 
-        
-        SpawnMonster(type, new Vector3(xPos, yPos, 0f), parent);
+        float yPos = Mathf.Sin(randomRadian) * radius;
+
+        Vector3 position = new Vector3(Managers.Game.Player.transform.position.x + xPos,
+            Managers.Game.Player.transform.position.y + yPos, 0f);
+        SpawnMonster(type, position, parent);
     }
 }

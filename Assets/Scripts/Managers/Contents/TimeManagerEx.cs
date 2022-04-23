@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,7 +15,12 @@ public class TimeManagerEx : MonoBehaviour
         {
             case Define.GameState.Play:
                 Time += UnityEngine.Time.deltaTime * Managers.Game.GameSpeed;
-                //TODO TIME TO UI Debug.Log($"{Time}");
+
+                TMP_Text text = FindObjectOfType<TMP_Text>();
+                var minute = Time / 60;
+                var second = Time % 60;
+                
+                text.text = $"{(int)minute} : {(int)second}";
                 break;
             
             case Define.GameState.Idle:
