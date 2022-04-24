@@ -14,6 +14,22 @@ public class ActiveSkill : Skill
         SkillType = Define.SkillType.Active;
     }
 
-    public virtual void Cast()
+    public virtual void Activate()
     { }
+
+    public virtual bool OnCooldown()
+    {
+        CurrentCooldown -= Time.deltaTime * Managers.Game.GameSpeed; 
+        
+        if (CurrentCooldown < 0)
+            return false;
+        
+        return true;
+    }
+
+    public virtual void ResetCooldown()
+    {
+        CurrentCooldown = Cooldown;
+    }
+
 }

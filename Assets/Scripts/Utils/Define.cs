@@ -79,6 +79,7 @@ public class Define
 
     #region Contents Values
 
+    public const float VALUE_FAIL_COOLDOWN = 0.25f;
     
 
     #endregion
@@ -151,8 +152,8 @@ public class Define
     {
         None,
         Random,
-        HomingClosest,
-        CasterMoveDirection180
+        Closest,
+        Move
     }
     
     #endregion

@@ -27,12 +27,10 @@ public class Battler : MonoBehaviour
     {
         foreach (ActiveSkill activeSkill in ActiveSkills)
         {
-            activeSkill.CurrentCooldown -= Time.deltaTime * Managers.Game.GameSpeed; //TODO GET COOL DOWN
-            if (activeSkill.CurrentCooldown > 0)
+            if (activeSkill.OnCooldown())
                 return;
 
-            Cast.ActiveSkill(activeSkill);
-            activeSkill.CurrentCooldown = activeSkill.Cooldown;
+            activeSkill.Activate();
         }
     }
 

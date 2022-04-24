@@ -47,7 +47,9 @@ public class GameScene : BaseScene
                 move += Vector3.right * speed * Time.deltaTime;
 
             Managers.Game.Player.transform.position += move;
-            Managers.Game.Player.Controller.LastMoveDirection = move.normalized;
+            
+            if(move != Vector3.zero)
+                Managers.Game.Player.Controller.LastMoveDirection = move;
 
             SpriteRenderer spriteRenderer = player.GetComponent<SpriteRenderer>();
             if (move.x < 0f)
